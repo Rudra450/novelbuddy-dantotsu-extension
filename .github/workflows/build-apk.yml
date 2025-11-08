@@ -1,5 +1,6 @@
-name: Build NovelBuddy Extension
+name: Build NovelBuddy APK
 
+# Triggers the workflow on push to any branch or manual run
 on:
   push:
     branches: ['**']
@@ -10,19 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Build with Tachiyomi extension build environment
-        run: |
-          docker run --rm -v $PWD:/project ghcr.io/tachiyomiorg/extension-build:latest \
-            bash -c "./gradlew assembleDebug"
+      # Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
-      - name: List built APKs
-        run: ls -R build/outputs/apk/ || echo "No APKs found"
+      # Grant execute permission to gradlew
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-      - name: Upload built APKs
+      # Build the APK
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      # Upload the APK as artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: NovelBuddy-extension-debug
+          name: NovelBuddy-debug.apk
           path: build/outputs/apk/**/*.apk
