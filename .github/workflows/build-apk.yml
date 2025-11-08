@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: NovelBuddy-debug.apk
-          path: novelbuddy-dantotsu-extension/Build/Novelbuddy-v1.apk
+          path: extension/build/outputs/apk/debug/*.apk
