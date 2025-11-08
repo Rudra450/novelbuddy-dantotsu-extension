@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+ext {
+    extName = 'NovelBuddy'
+    pkgNameSuffix = 'en.novelbuddy'
+    extClass = '.NovelBuddy'
+    extVersionCode = 1
+    libVersion = '1.5'
+}
+
+android {
+    compileSdkVersion 34
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 34
+    }
+}
+
+dependencies {
+    implementation "org.jsoup:jsoup:1.15.3"
+}
