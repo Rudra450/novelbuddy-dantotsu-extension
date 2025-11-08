@@ -1,0 +1,23 @@
+name: Build NovelBuddy Extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build extension using official environment
+        run: |
+          docker run --rm -v $PWD:/project ghcr.io/tachiyomiorg/extension-build:latest \
+            bash -c "./gradlew assembleRelease"
+
+      - name: Upload built APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NovelBuddy-release
+          path: build/outputs/apk/**/*.apk
