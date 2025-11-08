@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: NovelBuddy-debug.apk
-          path: build/outputs/apk/**/*.apk
+          path: Build/Novelbuddy-v1.apk
